@@ -36,12 +36,23 @@ def interpret_trend(trend):
 
 
 def analyze_trends(previous_report, current_report):
+
+    # ✅ SAFETY CHECK (THIS FIXES THE ERROR)
+    if previous_report is None or not isinstance(previous_report, dict):
+        return {
+            "parameter_trends": {},
+            "overall_trend": "ℹ No previous report available for trend analysis."
+        }
+
     trends = {}
     improving = 0
     worsening = 0
 
     for param in current_report:
         if param not in previous_report:
+            continue
+
+        if param not in HEALTH_CONFIG:
             continue
 
         prev_val = previous_report[param]
