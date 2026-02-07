@@ -3,7 +3,7 @@ Trend Analysis Module
 Compares previous and current medical reports
 """
 
-from backend.analyzer import HEALTH_CONFIG
+from backend.config import HEALTH_CONFIG
 
 
 def calculate_trend(previous, current, low, high):
