@@ -18,6 +18,7 @@ st.write(
 st.divider()
 
 # ---------------- File Upload ----------------
+st.subheader("📂 Upload  Medical Report ")
 uploaded_file = st.file_uploader(
     "📄 Upload Medical Report (JSON format)",
     type="json"
