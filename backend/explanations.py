@@ -1,15 +1,42 @@
-def next_steps(parameter, status):
-    if "Low" in status:
-        return "👉 Consider consulting a doctor if symptoms appear."
-    elif "High" in status:
-        return "👉 Lifestyle changes and medical advice recommended."
-    else:
-        return "👍 No action needed. Maintain healthy habits."
-def next_steps(parameter, status):
+"""
+Explanation Layer
+-----------------
+Responsible only for converting analysis results
+into patient-friendly language.
+No medical decision logic here.
+"""
+
+def severity_text(severity):
     """
-    Provides guidance based on health status
+    Converts severity level into readable explanation
     """
-    if "Low" in status or "High" in status:
-        return "👉 Please consult a doctor if symptoms persist."
+    if severity == "High":
+        return "This parameter requires urgent attention."
+    elif severity == "Moderate":
+        return "This parameter should be monitored closely."
     else:
-        return "👍 No immediate action needed. Maintain healthy habits."
+        return "This parameter is within a safe range."
+
+
+def status_badge(status):
+    """
+    Adds friendly icons to status
+    """
+    badges = {
+        "Normal": "🟢 Normal",
+        "High": "🔴 High",
+        "Low": "🟡 Low"
+    }
+    return badges.get(status, status)
+
+
+def trend_text(trend):
+    """
+    Human-friendly explanation for trend analysis
+    """
+    if "Improving" in trend:
+        return "This parameter is moving in a healthier direction."
+    elif "Worsening" in trend:
+        return "This parameter is showing signs of deterioration."
+    else:
+        return "This parameter has remained stable."
