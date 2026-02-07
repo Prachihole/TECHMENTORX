@@ -89,21 +89,21 @@ if st.button("🔍 Analyze Report"):
 if previous_report:
     st.subheader("📈 Health Trend Analysis")
 
-    trends = analyze_trends(previous_report, report)
+trend_result = analyze_trends(previous_report, report)
 
-    for param, data in trends.items():
-        st.markdown(
-            f"""
-**{param}**  
+for param, data in trend_result["parameter_trends"].items():
+    st.markdown(
+        f"""
+*{param}*  
 Previous Value: {data['previous']}  
 Current Value: {data['current']}  
-Trend: {data['trend']}
+Trend: {data['trend']}  
+💬 {data['meaning']}
 """
-        )
-        st.divider()
+    )
+    st.divider()
 
-    st.success("🧾 Trend analysis helps track health changes over time.")
-
+st.success(trend_result["overall_trend"])
 # ---------------- Disclaimer ----------------
 st.caption(
     "⚠️ This tool assists understanding of medical reports. "
