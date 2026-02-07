@@ -1,34 +1,124 @@
 def analyze_report(report):
     results = {}
 
-    # Hemoglobin
-    if report["hemoglobin"] < 12:
-        results["Hemoglobin"] = ("⚠️ Low", "Low hemoglobin may cause weakness or fatigue.")
+    # ---------------- Hemoglobin ----------------
+    hb = report["hemoglobin"]
+    if hb < 10:
+        status, severity = "Low", "High"
+        impact = "Low oxygen carrying capacity may cause fatigue and dizziness."
+        action = "Medical consultation recommended."
+    elif hb < 12:
+        status, severity = "Low", "Moderate"
+        impact = "Mild anemia possible, may cause weakness."
+        action = "Dietary improvement and monitoring advised."
     else:
-        results["Hemoglobin"] = ("✅ Normal", "Your hemoglobin level is normal.")
+        status, severity = "Normal", "Low"
+        impact = "Oxygen transport is adequate."
+        action = "No action required."
 
-    # WBC
-    if report["wbc"] > 11000:
-        results["WBC"] = ("⚠️ High", "High WBC may indicate infection.")
-    else:
-        results["WBC"] = ("✅ Normal", "White blood cell count is normal.")
+    results["Hemoglobin"] = {
+        "value": hb,
+        "normal_range": "12 – 16 g/dL",
+        "status": status,
+        "severity": severity,
+        "impact": impact,
+        "action": action
+    }
 
-    # Platelets
-    if report["platelets"] < 150000:
-        results["Platelets"] = ("⚠️ Low", "Low platelets may increase bleeding risk.")
+    # ---------------- WBC ----------------
+    wbc = report["wbc"]
+    if wbc > 15000:
+        status, severity = "High", "High"
+        impact = "Strong indication of infection or inflammation."
+        action = "Immediate medical attention recommended."
+    elif wbc > 11000:
+        status, severity = "High", "Moderate"
+        impact = "Possible infection or stress response."
+        action = "Consult doctor if symptoms persist."
     else:
-        results["Platelets"] = ("✅ Normal", "Platelet count is healthy.")
+        status, severity = "Normal", "Low"
+        impact = "Immune response appears normal."
+        action = "No action required."
 
-    # Blood Sugar
-    if report["blood_sugar"] > 140:
-        results["Blood Sugar"] = ("❌ High", "High blood sugar may indicate diabetes.")
-    else:
-        results["Blood Sugar"] = ("✅ Normal", "Blood sugar level is normal.")
+    results["WBC"] = {
+        "value": wbc,
+        "normal_range": "4,000 – 11,000 cells/µL",
+        "status": status,
+        "severity": severity,
+        "impact": impact,
+        "action": action
+    }
 
-    # Cholesterol
-    if report["cholesterol"] > 200:
-        results["Cholesterol"] = ("⚠️ High", "High cholesterol increases heart risk.")
+    # ---------------- Platelets ----------------
+    platelets = report["platelets"]
+    if platelets < 100000:
+        status, severity = "Low", "High"
+        impact = "High risk of bleeding."
+        action = "Urgent medical evaluation required."
+    elif platelets < 150000:
+        status, severity = "Low", "Moderate"
+        impact = "Mild bleeding risk."
+        action = "Regular monitoring advised."
     else:
-        results["Cholesterol"] = ("✅ Normal", "Cholesterol level is healthy.")
+        status, severity = "Normal", "Low"
+        impact = "Normal blood clotting function."
+        action = "No action required."
+
+    results["Platelets"] = {
+        "value": platelets,
+        "normal_range": "150,000 – 450,000 cells/µL",
+        "status": status,
+        "severity": severity,
+        "impact": impact,
+        "action": action
+    }
+
+    # ---------------- Blood Sugar ----------------
+    sugar = report["blood_sugar"]
+    if sugar > 200:
+        status, severity = "High", "High"
+        impact = "High risk of uncontrolled diabetes."
+        action = "Immediate medical consultation required."
+    elif sugar > 140:
+        status, severity = "High", "Moderate"
+        impact = "Elevated blood sugar levels."
+        action = "Lifestyle changes and medical advice recommended."
+    else:
+        status, severity = "Normal", "Low"
+        impact = "Blood sugar level is within safe range."
+        action = "Maintain healthy lifestyle."
+
+    results["Blood Sugar"] = {
+        "value": sugar,
+        "normal_range": "70 – 140 mg/dL",
+        "status": status,
+        "severity": severity,
+        "impact": impact,
+        "action": action
+    }
+
+    # ---------------- Cholesterol ----------------
+    chol = report["cholesterol"]
+    if chol > 240:
+        status, severity = "High", "High"
+        impact = "High risk of heart disease."
+        action = "Medical and lifestyle intervention required."
+    elif chol > 200:
+        status, severity = "High", "Moderate"
+        impact = "Increased cardiovascular risk."
+        action = "Dietary changes recommended."
+    else:
+        status, severity = "Normal", "Low"
+        impact = "Heart disease risk is low."
+        action = "Maintain healthy diet."
+
+    results["Cholesterol"] = {
+        "value": chol,
+        "normal_range": "< 200 mg/dL",
+        "status": status,
+        "severity": severity,
+        "impact": impact,
+        "action": action
+    }
 
     return results
